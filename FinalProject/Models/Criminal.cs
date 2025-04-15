@@ -8,23 +8,23 @@ namespace FinalProject.Models
 {
     class Criminal
     {
-        public string FirstName { get; private set; }
-        public string LastName { get; private set; }
-        public string Nickname { get; private set; }
-        public float Height { get; private set; }
-        public string HairColor { get; private set; }
-        public string EyeColor { get; private set; }
-        public string DistinguishingMarks { get; private set; }
-        public string Cityzenship { get; private set; }
-        public DateTime BirthDate { get; private set; }
-        public string Address { get; private set; }
-        public List<string> Languages { get; private set; }
-        public string CriminalProffession { get; private set; }
-        public string LastCrime { get; private set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Nickname { get; set; }
+        public float Height { get; set; }
+        public string HairColor { get;  set; }
+        public string EyeColor { get; set; }
+        public string DistinguishingMarks { get; set; }
+        public string Citizenship { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Address { get; set; }
+        public List<string> Languages { get; set; }
+        public string CriminalProfession { get; set; }
+        public string LastCrime { get; set; }
 
         public Criminal(string firstName, string lastName, string nickname, float height, string hairColor, 
-            string eyeColor, string distinguishingMarks, string cityzenship, DateTime birthDate, string address, 
-            List<string> languages, string criminalProffession, string lastCrime)
+            string eyeColor, string distinguishingMarks, string citizenship, DateTime birthDate, string address, 
+            List<string> languages, string criminalProfession, string lastCrime)
         {
             FirstName = firstName;
             LastName = lastName;
@@ -33,12 +33,18 @@ namespace FinalProject.Models
             HairColor = hairColor;
             EyeColor = eyeColor;
             DistinguishingMarks = distinguishingMarks;
-            Cityzenship = cityzenship;
+            Citizenship = citizenship;
             BirthDate = birthDate;
             Address = address;
             Languages = languages;
-            CriminalProffession = criminalProffession;
+            CriminalProfession = criminalProfession;
             LastCrime = lastCrime;
         }
+
+        public void JoinGroup(Group group)
+        {
+            group.AddMember(this);
+        }
+
     }
 }
