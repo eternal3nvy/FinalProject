@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Models
 {
-    class Group
+    public class Group
     {
         private readonly List<Criminal> members = new List<Criminal>();
         public string Name { get; private set; }

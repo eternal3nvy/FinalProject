@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Models
 {
-    class Archive
+    public class Archive
     {
         private readonly List<Criminal> criminals = new List<Criminal>();
 

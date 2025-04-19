@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace FinalProject.Models
 {
-    class Criminal
+    public class Criminal
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Nickname { get; set; }
-        public float Height { get; set; }
+        public decimal Height { get; set; }
         public string HairColor { get;  set; }
         public string EyeColor { get; set; }
         public string DistinguishingMarks { get; set; }
@@ -22,7 +22,10 @@ namespace FinalProject.Models
         public string CriminalProfession { get; set; }
         public string LastCrime { get; set; }
 
-        public Criminal(string firstName, string lastName, string nickname, float height, string hairColor, 
+        //shortinfo for listbox display
+        public string ShortInfo => $"{FirstName} {LastName} ({Nickname}) {BirthDate.ToShortDateString()} - {CriminalProfession}";
+
+        public Criminal(string firstName, string lastName, string nickname, decimal height, string hairColor, 
             string eyeColor, string distinguishingMarks, string citizenship, DateTime birthDate, string address, 
             List<string> languages, string criminalProfession, string lastCrime)
         {
@@ -46,5 +49,12 @@ namespace FinalProject.Models
             group.AddMember(this);
         }
 
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}, Nickname: {Nickname}, Height: {Height}, Hair Color: {HairColor}, " +
+                   $"Eye Color: {EyeColor}, Distinguishing Marks: {DistinguishingMarks}, Citizenship: " +
+                   $"{Citizenship}, Birth Date: {BirthDate.ToShortDateString()}, Address: {Address}, " +
+                   $"Languages: {string.Join(", ", Languages)}, Criminal Profession: {CriminalProfession}, Last Crime: {LastCrime}";
+        }
     }
 }

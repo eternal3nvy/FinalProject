@@ -15,8 +15,6 @@ namespace FinalProject
             ApplicationConfiguration.Initialize();
             Application.Run(new MainForm());
 
-            var interpolBase = new InterpolBase();
-            interpolBase.GenerateTestData();
 
 
         }
