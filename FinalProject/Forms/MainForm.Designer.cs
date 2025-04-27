@@ -56,9 +56,9 @@
             toolStripSeparator5 = new ToolStripSeparator();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             listBox = new ListBox();
+            criminalBindingSource = new BindingSource(components);
             findButton = new Button();
             advancedSearchButton = new Button();
-            criminalBindingSource = new BindingSource(components);
             panel1.SuspendLayout();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)criminalBindingSource).BeginInit();
@@ -257,6 +257,11 @@
             listBox.Name = "listBox";
             listBox.Size = new Size(776, 144);
             listBox.TabIndex = 3;
+            listBox.ValueMember = "Id";
+            // 
+            // criminalBindingSource
+            // 
+            criminalBindingSource.DataSource = typeof(Models.Criminal);
             // 
             // findButton
             // 
@@ -278,10 +283,6 @@
             advancedSearchButton.TabIndex = 4;
             advancedSearchButton.Text = "Advanced Search";
             advancedSearchButton.UseVisualStyleBackColor = true;
-            // 
-            // criminalBindingSource
-            // 
-            criminalBindingSource.DataSource = typeof(Models.Criminal);
             // 
             // MainForm
             // 

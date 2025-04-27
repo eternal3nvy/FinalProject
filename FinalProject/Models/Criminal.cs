@@ -8,6 +8,7 @@ namespace FinalProject.Models
 {
     public class Criminal
     {
+        public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Nickname { get; set; }
@@ -25,10 +26,11 @@ namespace FinalProject.Models
         //shortinfo for listbox display
         public string ShortInfo => $"{FirstName} {LastName} ({Nickname}) {BirthDate.ToShortDateString()} - {CriminalProfession}";
 
-        public Criminal(string firstName, string lastName, string nickname, decimal height, string hairColor, 
+        public Criminal(int id, string firstName, string lastName, string nickname, decimal height, string hairColor, 
             string eyeColor, string distinguishingMarks, string citizenship, DateTime birthDate, string address, 
             List<string> languages, string criminalProfession, string lastCrime)
         {
+            Id = id;
             FirstName = firstName;
             LastName = lastName;
             Nickname = nickname;

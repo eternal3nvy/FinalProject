@@ -23,6 +23,11 @@ namespace FinalProject.Models
 
         public void AddCriminal(Criminal criminal)
         {
+            if (criminal == null)
+            {
+                throw new Exception("Criminal cannot be null");
+            }    
+            criminal.Id = Criminals.Max(c => c.Id) + 1;
             Criminals.Add(criminal);
         }
 
@@ -44,8 +49,8 @@ namespace FinalProject.Models
 
         public void GenerateTestData()
         {
-            Criminals.Add(new Criminal("John", "Doe", "Johnny", 180, "Brown", "Blue", "Tattoo on arm", "USA", new DateTime(1990, 1, 1), "123 Main St", new List<string> { "English" }, "Thief", "Robbery"));
-            Criminals.Add(new Criminal("Jane", "Smith", "Janie", 165, "Black", "Green", "Scar on cheek", "Canada", new DateTime(1985, 5, 15), "456 Elm St", new List<string> { "English", "French" }, "Fraudster", "Identity Theft"));
+            Criminals.Add(new Criminal(101,"John", "Doe", "Johnny", 180, "Brown", "Blue", "Tattoo on arm", "USA", new DateTime(1990, 1, 1), "123 Main St", new List<string> { "English" }, "Thief", "Robbery"));
+            Criminals.Add(new Criminal(102, "Jane", "Smith", "Janie", 165, "Black", "Green", "Scar on cheek", "Canada", new DateTime(1985, 5, 15), "456 Elm St", new List<string> { "English", "French" }, "Fraudster", "Identity Theft"));
         }
 
         public void GenerateTestData(int n)
@@ -53,6 +58,7 @@ namespace FinalProject.Models
             for (int i = 0; i < n; i++)
             {
                 Criminals.Add(new Criminal(
+                    i,
                     "name" + i, 
                     "lastName" + i,
                     "nickname" + i, 
@@ -100,13 +106,20 @@ namespace FinalProject.Models
             try
             {
                 jsonCriminals = File.ReadAllLines(path)[0];
-                Criminals = JsonSerializer.Deserialize<List<Criminal>>(jsonCriminals);
+                var deserializedCriminals = JsonSerializer.Deserialize<List<Criminal>>(jsonCriminals);
+                if (deserializedCriminals != null)
+                {
+                    Criminals = deserializedCriminals;
+                }
+                else
+                {
+                    Console.WriteLine("Deserialization resulted in null. No data was loaded.");
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                Console.WriteLine("no data");
+                Console.WriteLine("An error occurred while deserializing data: " + ex.Message);
             }
-            
         }
     }
 }

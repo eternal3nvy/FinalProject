@@ -1,3 +1,4 @@
+using FinalProject.Forms;
 using FinalProject.Models;
 
 namespace FinalProject
@@ -9,7 +10,7 @@ namespace FinalProject
         {
             InitializeComponent();
             //interpolBase.GenerateTestData(500);
-            interpolBase.DeserializeData("data.txt");
+            interpolBase.DeserializeData("data.json");
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -23,7 +24,7 @@ namespace FinalProject
             switch (dialogRes)
             {
                 case DialogResult.Yes:
-                    interpolBase.SerializeData("data.txt");
+                    interpolBase.SerializeData("data.json");
                     break;
                 case DialogResult.No:
                     break;
@@ -41,7 +42,21 @@ namespace FinalProject
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            using AddCriminalForm form = new();
+            var res = form.ShowDialog();
+            if (res == DialogResult.Yes)
+            {
+                try
+                {
+                    interpolBase.AddCriminal(form.criminal);
+                    MessageBox.Show("Criminal added");
+                }
+                catch (Exception ex)
+                {
 
+                }
+                    
+            }
         }
     }
 }
