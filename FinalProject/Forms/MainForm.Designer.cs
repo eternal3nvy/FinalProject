@@ -56,11 +56,16 @@
             toolStripSeparator5 = new ToolStripSeparator();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             listBox = new ListBox();
+            addCriminalContextMenuStrip = new ContextMenuStrip(components);
+            addToolStripMenuItem1 = new ToolStripMenuItem();
+            removeToolStripMenuItem = new ToolStripMenuItem();
+            editToolStripMenuItem1 = new ToolStripMenuItem();
             criminalBindingSource = new BindingSource(components);
             findButton = new Button();
             advancedSearchButton = new Button();
             panel1.SuspendLayout();
             menuStrip1.SuspendLayout();
+            addCriminalContextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)criminalBindingSource).BeginInit();
             SuspendLayout();
             // 
@@ -207,7 +212,7 @@
             // addToolStripMenuItem
             // 
             addToolStripMenuItem.Name = "addToolStripMenuItem";
-            addToolStripMenuItem.Size = new Size(120, 26);
+            addToolStripMenuItem.Size = new Size(224, 26);
             addToolStripMenuItem.Text = "Add";
             addToolStripMenuItem.Click += addToolStripMenuItem_Click;
             // 
@@ -250,6 +255,7 @@
             // listBox
             // 
             listBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            listBox.ContextMenuStrip = addCriminalContextMenuStrip;
             listBox.DataSource = criminalBindingSource;
             listBox.DisplayMember = "ShortInfo";
             listBox.FormattingEnabled = true;
@@ -258,6 +264,34 @@
             listBox.Size = new Size(776, 144);
             listBox.TabIndex = 3;
             listBox.ValueMember = "Id";
+            // 
+            // addCriminalContextMenuStrip
+            // 
+            addCriminalContextMenuStrip.ImageScalingSize = new Size(20, 20);
+            addCriminalContextMenuStrip.Items.AddRange(new ToolStripItem[] { addToolStripMenuItem1, removeToolStripMenuItem, editToolStripMenuItem1 });
+            addCriminalContextMenuStrip.Name = "contextMenuStrip1";
+            addCriminalContextMenuStrip.Size = new Size(211, 104);
+            addCriminalContextMenuStrip.Opening += addCriminalContextMenuStrip_Opening;
+            // 
+            // addToolStripMenuItem1
+            // 
+            addToolStripMenuItem1.Name = "addToolStripMenuItem1";
+            addToolStripMenuItem1.Size = new Size(210, 24);
+            addToolStripMenuItem1.Text = "Add";
+            addToolStripMenuItem1.Click += addToolStripMenuItem1_Click;
+            // 
+            // removeToolStripMenuItem
+            // 
+            removeToolStripMenuItem.Name = "removeToolStripMenuItem";
+            removeToolStripMenuItem.Size = new Size(210, 24);
+            removeToolStripMenuItem.Text = "Remove";
+            removeToolStripMenuItem.Click += removeToolStripMenuItem_Click;
+            // 
+            // editToolStripMenuItem1
+            // 
+            editToolStripMenuItem1.Name = "editToolStripMenuItem1";
+            editToolStripMenuItem1.Size = new Size(210, 24);
+            editToolStripMenuItem1.Text = "Edit";
             // 
             // criminalBindingSource
             // 
@@ -303,6 +337,7 @@
             panel1.PerformLayout();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            addCriminalContextMenuStrip.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)criminalBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -338,5 +373,9 @@
         private Button advancedSearchButton;
         private ToolStripMenuItem addToolStripMenuItem;
         private BindingSource criminalBindingSource;
+        private ContextMenuStrip addCriminalContextMenuStrip;
+        private ToolStripMenuItem addToolStripMenuItem1;
+        private ToolStripMenuItem removeToolStripMenuItem;
+        private ToolStripMenuItem editToolStripMenuItem1;
     }
 }
