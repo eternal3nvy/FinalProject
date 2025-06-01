@@ -60,6 +60,7 @@
             addToolStripMenuItem1 = new ToolStripMenuItem();
             removeToolStripMenuItem = new ToolStripMenuItem();
             editToolStripMenuItem1 = new ToolStripMenuItem();
+            moveToArchiveToolStripMenuItem = new ToolStripMenuItem();
             criminalBindingSource = new BindingSource(components);
             findButton = new Button();
             advancedSearchButton = new Button();
@@ -212,7 +213,7 @@
             // addToolStripMenuItem
             // 
             addToolStripMenuItem.Name = "addToolStripMenuItem";
-            addToolStripMenuItem.Size = new Size(224, 26);
+            addToolStripMenuItem.Size = new Size(120, 26);
             addToolStripMenuItem.Text = "Add";
             addToolStripMenuItem.Click += addToolStripMenuItem_Click;
             // 
@@ -268,30 +269,37 @@
             // addCriminalContextMenuStrip
             // 
             addCriminalContextMenuStrip.ImageScalingSize = new Size(20, 20);
-            addCriminalContextMenuStrip.Items.AddRange(new ToolStripItem[] { addToolStripMenuItem1, removeToolStripMenuItem, editToolStripMenuItem1 });
+            addCriminalContextMenuStrip.Items.AddRange(new ToolStripItem[] { addToolStripMenuItem1, removeToolStripMenuItem, editToolStripMenuItem1, moveToArchiveToolStripMenuItem });
             addCriminalContextMenuStrip.Name = "contextMenuStrip1";
-            addCriminalContextMenuStrip.Size = new Size(211, 104);
+            addCriminalContextMenuStrip.Size = new Size(187, 100);
             addCriminalContextMenuStrip.Opening += addCriminalContextMenuStrip_Opening;
             // 
             // addToolStripMenuItem1
             // 
             addToolStripMenuItem1.Name = "addToolStripMenuItem1";
-            addToolStripMenuItem1.Size = new Size(210, 24);
+            addToolStripMenuItem1.Size = new Size(186, 24);
             addToolStripMenuItem1.Text = "Add";
             addToolStripMenuItem1.Click += addToolStripMenuItem1_Click;
             // 
             // removeToolStripMenuItem
             // 
             removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            removeToolStripMenuItem.Size = new Size(210, 24);
+            removeToolStripMenuItem.Size = new Size(186, 24);
             removeToolStripMenuItem.Text = "Remove";
             removeToolStripMenuItem.Click += removeToolStripMenuItem_Click;
             // 
             // editToolStripMenuItem1
             // 
             editToolStripMenuItem1.Name = "editToolStripMenuItem1";
-            editToolStripMenuItem1.Size = new Size(210, 24);
+            editToolStripMenuItem1.Size = new Size(186, 24);
             editToolStripMenuItem1.Text = "Edit";
+            editToolStripMenuItem1.Click += editToolStripMenuItem1_Click;
+            // 
+            // moveToArchiveToolStripMenuItem
+            // 
+            moveToArchiveToolStripMenuItem.Name = "moveToArchiveToolStripMenuItem";
+            moveToArchiveToolStripMenuItem.Size = new Size(186, 24);
+            moveToArchiveToolStripMenuItem.Text = "Move to Archive";
             // 
             // criminalBindingSource
             // 
@@ -377,5 +385,6 @@
         private ToolStripMenuItem addToolStripMenuItem1;
         private ToolStripMenuItem removeToolStripMenuItem;
         private ToolStripMenuItem editToolStripMenuItem1;
+        private ToolStripMenuItem moveToArchiveToolStripMenuItem;
     }
 }

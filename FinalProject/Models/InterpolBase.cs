@@ -5,19 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using System.Windows.Forms;
 
 namespace FinalProject.Models
 {
     public class InterpolBase
     {
         public List<Criminal> Criminals { get; private set; }
-        public List<Group> Groups { get; private set; }
+        public Group GroupDB { get; private set; }
         public Archive Archive { get; private set; }
 
         public InterpolBase()
         {
             Criminals = new List<Criminal>();
-            Groups = new List<Group>();
+            GroupDB = new Group();
             Archive = new Archive();
         }
 
@@ -28,7 +29,39 @@ namespace FinalProject.Models
                 throw new Exception("Criminal cannot be null");
             }    
             criminal.Id = Criminals.Max(c => c.Id) + 1;
+            if (!String.IsNullOrEmpty(criminal.GroupName))
+            {
+                if (GroupDB.groupDB.ContainsKey(criminal.GroupName.ToLower()))
+                {
+                    GroupDB.AddMember(criminal.GroupName, criminal);
+                }
+                else
+                {
+                    MessageBox.Show($"New group created {criminal.GroupName}");
+                }
+            }
             Criminals.Add(criminal);
+        }
+
+        public void UpdateCriminal(Criminal criminal)
+        {
+            var existingCriminal = Criminals.FirstOrDefault(c => c.Id == criminal.Id);
+            if (existingCriminal != null)
+            {
+                existingCriminal.FirstName = criminal.FirstName;
+                existingCriminal.LastName = criminal.LastName;
+                existingCriminal.Nickname = criminal.Nickname;
+                existingCriminal.Height = criminal.Height;
+                existingCriminal.HairColor = criminal.HairColor;
+                existingCriminal.EyeColor = criminal.EyeColor;
+                existingCriminal.DistinguishingMarks = criminal.DistinguishingMarks;
+                existingCriminal.Citizenship = criminal.Citizenship;
+                existingCriminal.BirthDate = criminal.BirthDate;
+                existingCriminal.Address = criminal.Address;
+                existingCriminal.Languages = criminal.Languages;
+                existingCriminal.CriminalProfession = criminal.CriminalProfession;
+                existingCriminal.LastCrime = criminal.LastCrime;
+            }
         }
 
         public void RemoveCriminal(Criminal criminal)
@@ -36,15 +69,6 @@ namespace FinalProject.Models
             Criminals.Remove(criminal);
         }
 
-        public void AddGroup(Group group)
-        {
-            Groups.Add(group);
-        }
-
-        public void RemoveGroup(Group group)
-        {
-            Groups.Remove(group);
-        }
 
 
         public void GenerateTestData()
@@ -120,6 +144,16 @@ namespace FinalProject.Models
             {
                 Console.WriteLine("An error occurred while deserializing data: " + ex.Message);
             }
+        }
+
+        public void GroupChange(Criminal criminal, string newGroupName)
+        {
+            if (criminal.GroupName != null && GroupDB.groupDB.ContainsKey(criminal.GroupName.ToLower()))
+            {
+                GroupDB.RemoveMember(criminal.GroupName, criminal);
+            }
+            criminal.GroupName = newGroupName;
+            GroupDB.AddMember(newGroupName, criminal);
         }
     }
 }

@@ -23,12 +23,14 @@ namespace FinalProject.Models
         public string CriminalProfession { get; set; }
         public string LastCrime { get; set; }
 
+        public string GroupName { get; set; }
+
         //shortinfo for listbox display
         public string ShortInfo => $"{FirstName} {LastName} ({Nickname}) {BirthDate.ToShortDateString()} - {CriminalProfession}";
 
         public Criminal(int id, string firstName, string lastName, string nickname, decimal height, string hairColor, 
             string eyeColor, string distinguishingMarks, string citizenship, DateTime birthDate, string address, 
-            List<string> languages, string criminalProfession, string lastCrime)
+            List<string> languages, string criminalProfession, string lastCrime, string groupName = "")
         {
             Id = id;
             FirstName = firstName;
@@ -44,11 +46,12 @@ namespace FinalProject.Models
             Languages = languages;
             CriminalProfession = criminalProfession;
             LastCrime = lastCrime;
+            GroupName = groupName;
         }
 
-        public void JoinGroup(Group group)
+        public void JoinGroup(string groupName, Group group)
         {
-            group.AddMember(this);
+            
         }
 
         public override string ToString()

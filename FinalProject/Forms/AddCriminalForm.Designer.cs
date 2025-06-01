@@ -56,6 +56,8 @@
             lastCrimeTextBox = new TextBox();
             okButton = new Button();
             cancelButton = new Button();
+            groupNameLabel = new Label();
+            groupNameTextBox = new TextBox();
             SuspendLayout();
             // 
             // firstNameTextBox
@@ -290,11 +292,29 @@
             cancelButton.Text = "Cancel";
             cancelButton.UseVisualStyleBackColor = true;
             // 
+            // groupNameLabel
+            // 
+            groupNameLabel.AutoSize = true;
+            groupNameLabel.Location = new Point(460, 262);
+            groupNameLabel.Name = "groupNameLabel";
+            groupNameLabel.Size = new Size(120, 20);
+            groupNameLabel.TabIndex = 30;
+            groupNameLabel.Text = "Group (optional)";
+            // 
+            // groupNameTextBox
+            // 
+            groupNameTextBox.Location = new Point(598, 259);
+            groupNameTextBox.Name = "groupNameTextBox";
+            groupNameTextBox.Size = new Size(125, 27);
+            groupNameTextBox.TabIndex = 29;
+            // 
             // AddCriminalForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(groupNameLabel);
+            Controls.Add(groupNameTextBox);
             Controls.Add(cancelButton);
             Controls.Add(lastCrimeLabel);
             Controls.Add(okButton);
@@ -361,5 +381,7 @@
         private TextBox lastCrimeTextBox;
         private Button okButton;
         private Button cancelButton;
+        private Label groupNameLabel;
+        private TextBox groupNameTextBox;
     }
 }

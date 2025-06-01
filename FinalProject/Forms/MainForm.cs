@@ -49,6 +49,7 @@ namespace FinalProject
                 try
                 {
                     interpolBase.AddCriminal(form.criminal);
+
                     MessageBox.Show("Criminal added");
                 }
                 catch (Exception ex)
@@ -85,6 +86,7 @@ namespace FinalProject
 
             removeToolStripMenuItem.Visible = isItemSelected;
             editToolStripMenuItem1.Visible = isItemSelected;
+            moveToArchiveToolStripMenuItem.Visible = isItemSelected;
         }
 
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -96,12 +98,36 @@ namespace FinalProject
                 {
                     interpolBase.RemoveCriminal(selectedCriminal);
                     //findButton_Click(sender, e);
-                    criminalBindingSource.DataSource = interpolBase.Criminals;
-                    
+                    criminalBindingSource.DataSource = null; // it fixes the problem with listBox
+                    criminalBindingSource.DataSource = interpolBase.Criminals; 
                 }
             }
             else
                 MessageBox.Show("Firstly chose criminal");
+        }
+
+        private void editToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var chosedCriminal = listBox.SelectedItem as Criminal;
+            if (chosedCriminal == null)
+            {
+                MessageBox.Show("Firstly chose criminal");
+                return;
+            }
+            using Edit form = new(chosedCriminal);
+            var res = form.ShowDialog();
+            switch (res)
+            {
+                case DialogResult.Yes:
+                    criminalBindingSource.ResetBindings(false); 
+                    //interpolBase.
+                    MessageBox.Show("Criminal updated");
+                    break;
+                case DialogResult.No:
+                    break;
+                case DialogResult.Cancel:
+                    break;
+            }
         }
     }
 }

@@ -8,28 +8,54 @@ namespace FinalProject.Models
 {
     public class Group
     {
-        private readonly List<Criminal> members = new List<Criminal>();
-        public string Name { get; private set; }
+        public Dictionary<string, List<Criminal>> groupDB = new();
 
-        public Group(string name)
+        public void AddMember(string groupName, Criminal criminal)
         {
-            Name = name;
+            if (groupDB.ContainsKey(groupName.ToLower()))
+                groupDB[groupName.ToLower()].Add(criminal);
+            else
+            {
+                groupDB.Add(groupName.ToLower(), new List<Criminal>());
+                groupDB[groupName.ToLower()].Add(criminal);
+            }
+            criminal.GroupName = groupName.ToLower();
         }
 
-        public void AddMember(Criminal criminal)
+        public void RemoveMember(int id)
         {
-            members.Add(criminal);
+            foreach (var g in groupDB.Keys)
+            {
+                for (int i = 0; i < groupDB[g].Count; i++)
+                {
+                    if (groupDB[g][i].Id == id)
+                    {
+                        groupDB[g][i].GroupName = string.Empty;
+                        groupDB[g].RemoveAt(i);
+                        break;
+                    }
+                }
+            }
         }
 
-        public void RemoveMember(Criminal criminal)
+        public void RemoveMember(string groupName, Criminal criminal)
         {
-            members.Remove(criminal);
+            var group = groupDB[groupName.ToLower()];
+            for (int i = 0; i < group.Count; i++)
+            {
+                if (group[i].Id == criminal.Id)
+                {
+                    group[i].GroupName = string.Empty;
+                    group.RemoveAt(i);
+                    break;
+                }
+            }
         }
 
-        public List<Criminal> GetMembers()
-        {
-            return members;
-        }
+        //public List<Criminal> GetMembers()
+        //{
+
+        //}
 
     }
 }
