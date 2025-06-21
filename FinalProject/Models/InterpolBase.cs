@@ -13,32 +13,25 @@ namespace FinalProject.Models
     {
         public List<Criminal> Criminals { get; private set; }
         public Group GroupDB { get; private set; }
-        public Archive Archive { get; private set; }
+        public List<ArchivedCriminal> Archive { get; private set; }
 
         public InterpolBase()
         {
             Criminals = new List<Criminal>();
             GroupDB = new Group();
-            Archive = new Archive();
+            Archive = new List<ArchivedCriminal>();
         }
 
         public void AddCriminal(Criminal criminal)
         {
-            if (criminal == null)
-            {
-                throw new Exception("Criminal cannot be null");
-            }    
-            criminal.Id = Criminals.Max(c => c.Id) + 1;
+            criminal.Id = Criminals.Count == 0 ? 0 :Criminals.Max(c => c.Id) + 1;
+            //criminal.Id = Archive.Count == 0 ? criminal.Id : Math.Max(criminal.Id, Archive.Max(c => c.Id) + 1);
             if (!String.IsNullOrEmpty(criminal.GroupName))
             {
-                if (GroupDB.groupDB.ContainsKey(criminal.GroupName.ToLower()))
-                {
-                    GroupDB.AddMember(criminal.GroupName, criminal);
-                }
-                else
-                {
+                if (!GroupDB.groupDB.ContainsKey(criminal.GroupName.ToLower()))
                     MessageBox.Show($"New group created {criminal.GroupName}");
-                }
+                
+                GroupDB.AddMember(criminal.GroupName.ToLower(), criminal);
             }
             Criminals.Add(criminal);
         }
@@ -66,9 +59,11 @@ namespace FinalProject.Models
 
         public void RemoveCriminal(Criminal criminal)
         {
+            //delete criminal from the group if has it
+            if (!String.IsNullOrEmpty(criminal.GroupName))
+                GroupDB.RemoveMember(criminal.GroupName, criminal);
             Criminals.Remove(criminal);
         }
-
 
 
         public void GenerateTestData()
@@ -101,17 +96,8 @@ namespace FinalProject.Models
         }
 
 
-        public void Rehabilitate(Criminal criminal)
-        {
-            Archive.AddCriminalToArchive(criminal);
-            Criminals.Remove(criminal);
-        }
-
         public List<Criminal> FindCriminal(string firstName, string lastName)
         {
-            ////todo try catch
-            //return Criminals.FindAll(c => c.FirstName.ToLower()== firstName.Trim().ToLower() 
-            //&& c.LastName.ToLower() == lastName.Trim().ToLower());
 
             return Criminals.FindAll(c => c.FirstName.ToLower().IndexOf(firstName.Trim().ToLower()) != -1 &&
                                           c.LastName.ToLower().IndexOf(lastName.Trim().ToLower()) != -1);
@@ -120,24 +106,29 @@ namespace FinalProject.Models
         public void SerializeData(string path)
         {
             string jsonCriminals = JsonSerializer.Serialize(Criminals);
+            string jsonGroups = JsonSerializer.Serialize(GroupDB.groupDB);
 
-            File.WriteAllLines(path, [jsonCriminals]);
+            File.WriteAllLines(path, [jsonCriminals, jsonGroups]);
         }
 
         public void DeserializeData(string path)
         {
-            string jsonCriminals;
             try
             {
-                jsonCriminals = File.ReadAllLines(path)[0];
-                var deserializedCriminals = JsonSerializer.Deserialize<List<Criminal>>(jsonCriminals);
-                if (deserializedCriminals != null)
+                string[] lines = File.ReadAllLines(path);
+
+                if (lines.Length >= 1)
                 {
-                    Criminals = deserializedCriminals;
+                    var deserializedCriminals = JsonSerializer.Deserialize<List<Criminal>>(lines[0]);
+                    if (deserializedCriminals != null)
+                        Criminals = deserializedCriminals;
                 }
-                else
+
+                if (lines.Length >= 2)
                 {
-                    Console.WriteLine("Deserialization resulted in null. No data was loaded.");
+                    var deserializedGroups = JsonSerializer.Deserialize<Dictionary<string, List<Criminal>>>(lines[1]);
+                    if (deserializedGroups != null)
+                        GroupDB.groupDB = deserializedGroups;
                 }
             }
             catch (Exception ex)
@@ -146,14 +137,85 @@ namespace FinalProject.Models
             }
         }
 
-        public void GroupChange(Criminal criminal, string newGroupName)
+
+        public List<ICriminalInfo> AdvancedSearch(Criminal criteria, IEnumerable<ICriminalInfo> data)
         {
-            if (criminal.GroupName != null && GroupDB.groupDB.ContainsKey(criminal.GroupName.ToLower()))
+            IEnumerable<ICriminalInfo> query = data;
+            //query is like a view in sql. it is not create new collection just uses filters WHERE
+            //apply filters for each property if criteria is not empty
+            if (!string.IsNullOrWhiteSpace(criteria.FirstName))
+                query = query.Where(c => c.FirstName.Contains(criteria.FirstName, StringComparison.OrdinalIgnoreCase));
+
+            if (!string.IsNullOrWhiteSpace(criteria.LastName))
+                query = query.Where(c => c.LastName.Contains(criteria.LastName, StringComparison.OrdinalIgnoreCase));
+
+            if (!string.IsNullOrWhiteSpace(criteria.Nickname))
+                query = query.Where(c => c.Nickname.Contains(criteria.Nickname, StringComparison.OrdinalIgnoreCase));
+
+            if (criteria.Height > 0)
+                query = query.Where(c => c.Height == criteria.Height);
+
+            if (!string.IsNullOrWhiteSpace(criteria.HairColor))
+                query = query.Where(c => c.HairColor.Contains(criteria.HairColor, StringComparison.OrdinalIgnoreCase));
+
+            if (!string.IsNullOrWhiteSpace(criteria.EyeColor))
+                query = query.Where(c => c.EyeColor.Contains(criteria.EyeColor, StringComparison.OrdinalIgnoreCase));
+
+            if (!string.IsNullOrWhiteSpace(criteria.DistinguishingMarks))
+                query = query.Where(c => c.DistinguishingMarks.Contains(criteria.DistinguishingMarks, StringComparison.OrdinalIgnoreCase));
+
+            if (!string.IsNullOrWhiteSpace(criteria.Citizenship))
+                query = query.Where(c => c.Citizenship.Contains(criteria.Citizenship, StringComparison.OrdinalIgnoreCase));
+
+            // Filter by BirthDate only if it's not default (01/01/2000)
+            if (criteria.BirthDate != new DateTime(2000, 1, 1))
+                query = query.Where(c => c.BirthDate.Date == criteria.BirthDate.Date);
+
+            if (!string.IsNullOrWhiteSpace(criteria.Address))
+                query = query.Where(c => c.Address.Contains(criteria.Address, StringComparison.OrdinalIgnoreCase));
+
+            // Languages
+            if (criteria.Languages != null && criteria.Languages.Count > 0)
             {
-                GroupDB.RemoveMember(criminal.GroupName, criminal);
+                var criteriaLangs = criteria.Languages
+                    .Select(lang => lang.Trim().ToLower())
+                    .Where(lang => !string.IsNullOrEmpty(lang))
+                    .ToList();
+
+                if (criteriaLangs.Count > 0)
+                {
+                    query = query.Where(c =>
+                        c.Languages != null &&
+                        criteriaLangs.All(cl =>
+                            c.Languages
+                                .Select(l => l.Trim().ToLower())
+                                .Contains(cl)
+                        )
+                    );
+                }
             }
-            criminal.GroupName = newGroupName;
-            GroupDB.AddMember(newGroupName, criminal);
+
+            if (!string.IsNullOrWhiteSpace(criteria.CriminalProfession))
+                query = query.Where(c => c.CriminalProfession.Contains(criteria.CriminalProfession, StringComparison.OrdinalIgnoreCase));
+
+            if (!string.IsNullOrWhiteSpace(criteria.LastCrime))
+                query = query.Where(c => c.LastCrime.Contains(criteria.LastCrime, StringComparison.OrdinalIgnoreCase));
+
+            if (!string.IsNullOrWhiteSpace(criteria.GroupName))
+                query = query.Where(c =>
+                    c.GroupName != null &&
+                    c.GroupName.Trim().ToLower() == criteria.GroupName.Trim().ToLower()
+                );
+
+            return query.ToList();
+        }
+
+        public void moveToArchive(Criminal criminal, string reason)
+        {
+            if (criminal == null) return;
+            var archivedCriminal = new ArchivedCriminal(criminal, reason);
+            Archive.Add(archivedCriminal);
+            RemoveCriminal(criminal);
         }
     }
 }

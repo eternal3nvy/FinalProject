@@ -57,7 +57,6 @@ namespace FinalProject.Forms
         {
             if (DialogResult == DialogResult.Yes)
             {
-                //validate input
                 if (!ValidateInput())
                 {
                     return;

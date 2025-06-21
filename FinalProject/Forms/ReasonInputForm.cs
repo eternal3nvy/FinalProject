@@ -10,11 +10,13 @@ using System.Windows.Forms;
 
 namespace FinalProject.Forms
 {
-    public partial class Form1: Form
+    public partial class ReasonInputForm: Form
     {
-        public Form1()
+        public ReasonInputForm()
         {
             InitializeComponent();
         }
+
+        public string Reason { get => reasonBox.Text.Trim(); }
     }
 }

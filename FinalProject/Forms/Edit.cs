@@ -14,22 +14,16 @@ namespace FinalProject.Forms
     public partial class Edit : Form
     {
         public Criminal Criminal { get; private set; }
-        public Edit(Criminal c)
+        public InterpolBase interpolBase { get; private set; }
+        public Edit(Criminal c, InterpolBase _interpolBase)
         {
             InitializeComponent();
             Text = $"{c.FirstName} {c.LastName}";
             Criminal = c;
             LoadCriminalData();
+            interpolBase = _interpolBase;
         }
 
-        private bool GroupNameChanged(Criminal _criminal)
-        {
-            if (groupTextBox.Text.ToLower() != _criminal.GroupName.ToLower())
-            {
-                return true;
-            }
-            return false;
-        }
         private bool ChangedMade(Criminal _criminal)
         {
             if (firstNameTextBox.Text != _criminal.FirstName ||
@@ -44,7 +38,8 @@ namespace FinalProject.Forms
                 criminalProfessionTextBox.Text != _criminal.CriminalProfession ||
                 lastCrimeTextBox.Text != _criminal.LastCrime ||
                 birthDate.Value != _criminal.BirthDate ||
-                languagesTextBox.Text != string.Join(", ", _criminal.Languages))
+                languagesTextBox.Text != string.Join(", ", _criminal.Languages) ||
+                groupTextBox.Text != _criminal.GroupName)
             {
                 return true;
             }
@@ -85,6 +80,9 @@ namespace FinalProject.Forms
         }
         private void UpdateCriminal()
         {
+            string newGroupName = groupTextBox.Text.ToLower().Trim();
+            string oldGroupName = Criminal.GroupName;
+
             Criminal.FirstName = firstNameTextBox.Text;
             Criminal.LastName = lastNameTextBox.Text;
             Criminal.Nickname = nicknameTextBox.Text;
@@ -95,16 +93,23 @@ namespace FinalProject.Forms
             Criminal.Citizenship = citizenshipTextBox.Text;
             Criminal.BirthDate = birthDate.Value;
             Criminal.Address = addressTextBox.Text;
-            Criminal.Languages = languagesTextBox.Text.Split([',', ' '], StringSplitOptions.TrimEntries |
-                                                        StringSplitOptions.RemoveEmptyEntries)
-                                                        .ToList();
+            Criminal.Languages = languagesTextBox.Text
+                .Split([',', ' '], StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries)
+                .ToList();
             Criminal.CriminalProfession = criminalProfessionTextBox.Text;
             Criminal.LastCrime = lastCrimeTextBox.Text;
-            Criminal.GroupName = groupTextBox.Text.ToLower();
-            Criminal.GroupName = groupTextBox.Text.ToLower();
-            if (GroupNameChanged(Criminal))
+            
+            if (String.IsNullOrEmpty(oldGroupName) && !String.IsNullOrEmpty(newGroupName))
             {
-                
+                interpolBase.GroupDB.AddMember(newGroupName, Criminal);
+            }
+            else if (!String.IsNullOrEmpty(oldGroupName) && String.IsNullOrEmpty(newGroupName))
+            {
+                interpolBase.GroupDB.RemoveMember(oldGroupName,Criminal); // remove from old group if exists
+            }
+            else if (oldGroupName != newGroupName)
+            {
+                interpolBase.GroupDB.ChangeGroup(Criminal, newGroupName, oldGroupName);
             }
         }
 

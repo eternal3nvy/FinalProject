@@ -55,6 +55,8 @@
             searchToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator5 = new ToolStripSeparator();
             aboutToolStripMenuItem = new ToolStripMenuItem();
+            groupsToolStripMenuItem = new ToolStripMenuItem();
+            archiveToolStripMenuItem = new ToolStripMenuItem();
             listBox = new ListBox();
             addCriminalContextMenuStrip = new ContextMenuStrip(components);
             addToolStripMenuItem1 = new ToolStripMenuItem();
@@ -117,7 +119,7 @@
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, helpToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, editToolStripMenuItem, helpToolStripMenuItem, groupsToolStripMenuItem, archiveToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(800, 28);
@@ -253,6 +255,20 @@
             aboutToolStripMenuItem.Size = new Size(150, 26);
             aboutToolStripMenuItem.Text = "&About...";
             // 
+            // groupsToolStripMenuItem
+            // 
+            groupsToolStripMenuItem.Name = "groupsToolStripMenuItem";
+            groupsToolStripMenuItem.Size = new Size(70, 24);
+            groupsToolStripMenuItem.Text = "Groups";
+            groupsToolStripMenuItem.Click += groupsToolStripMenuItem_Click;
+            // 
+            // archiveToolStripMenuItem
+            // 
+            archiveToolStripMenuItem.Name = "archiveToolStripMenuItem";
+            archiveToolStripMenuItem.Size = new Size(72, 24);
+            archiveToolStripMenuItem.Text = "Archive";
+            archiveToolStripMenuItem.Click += archiveToolStripMenuItem_Click;
+            // 
             // listBox
             // 
             listBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -271,35 +287,36 @@
             addCriminalContextMenuStrip.ImageScalingSize = new Size(20, 20);
             addCriminalContextMenuStrip.Items.AddRange(new ToolStripItem[] { addToolStripMenuItem1, removeToolStripMenuItem, editToolStripMenuItem1, moveToArchiveToolStripMenuItem });
             addCriminalContextMenuStrip.Name = "contextMenuStrip1";
-            addCriminalContextMenuStrip.Size = new Size(187, 100);
+            addCriminalContextMenuStrip.Size = new Size(211, 128);
             addCriminalContextMenuStrip.Opening += addCriminalContextMenuStrip_Opening;
             // 
             // addToolStripMenuItem1
             // 
             addToolStripMenuItem1.Name = "addToolStripMenuItem1";
-            addToolStripMenuItem1.Size = new Size(186, 24);
+            addToolStripMenuItem1.Size = new Size(210, 24);
             addToolStripMenuItem1.Text = "Add";
             addToolStripMenuItem1.Click += addToolStripMenuItem1_Click;
             // 
             // removeToolStripMenuItem
             // 
             removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            removeToolStripMenuItem.Size = new Size(186, 24);
+            removeToolStripMenuItem.Size = new Size(210, 24);
             removeToolStripMenuItem.Text = "Remove";
             removeToolStripMenuItem.Click += removeToolStripMenuItem_Click;
             // 
             // editToolStripMenuItem1
             // 
             editToolStripMenuItem1.Name = "editToolStripMenuItem1";
-            editToolStripMenuItem1.Size = new Size(186, 24);
+            editToolStripMenuItem1.Size = new Size(210, 24);
             editToolStripMenuItem1.Text = "Edit";
             editToolStripMenuItem1.Click += editToolStripMenuItem1_Click;
             // 
             // moveToArchiveToolStripMenuItem
             // 
             moveToArchiveToolStripMenuItem.Name = "moveToArchiveToolStripMenuItem";
-            moveToArchiveToolStripMenuItem.Size = new Size(186, 24);
+            moveToArchiveToolStripMenuItem.Size = new Size(210, 24);
             moveToArchiveToolStripMenuItem.Text = "Move to Archive";
+            moveToArchiveToolStripMenuItem.Click += moveToArchiveToolStripMenuItem_Click;
             // 
             // criminalBindingSource
             // 
@@ -308,9 +325,9 @@
             // findButton
             // 
             findButton.Anchor = AnchorStyles.Top;
-            findButton.Location = new Point(322, 205);
+            findButton.Location = new Point(206, 214);
             findButton.Name = "findButton";
-            findButton.Size = new Size(118, 31);
+            findButton.Size = new Size(133, 38);
             findButton.TabIndex = 0;
             findButton.Text = "Find";
             findButton.UseVisualStyleBackColor = true;
@@ -319,12 +336,13 @@
             // advancedSearchButton
             // 
             advancedSearchButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            advancedSearchButton.Location = new Point(670, 41);
+            advancedSearchButton.Location = new Point(420, 214);
             advancedSearchButton.Name = "advancedSearchButton";
-            advancedSearchButton.Size = new Size(118, 48);
+            advancedSearchButton.Size = new Size(133, 38);
             advancedSearchButton.TabIndex = 4;
             advancedSearchButton.Text = "Advanced Search";
             advancedSearchButton.UseVisualStyleBackColor = true;
+            advancedSearchButton.Click += advancedSearchButton_Click;
             // 
             // MainForm
             // 
@@ -386,5 +404,7 @@
         private ToolStripMenuItem removeToolStripMenuItem;
         private ToolStripMenuItem editToolStripMenuItem1;
         private ToolStripMenuItem moveToArchiveToolStripMenuItem;
+        private ToolStripMenuItem groupsToolStripMenuItem;
+        private ToolStripMenuItem archiveToolStripMenuItem;
     }
 }

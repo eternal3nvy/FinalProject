@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FinalProject.Models
 {
-    public class Criminal
+    public class Criminal : ICriminalInfo
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -43,23 +44,27 @@ namespace FinalProject.Models
             Citizenship = citizenship;
             BirthDate = birthDate;
             Address = address;
-            Languages = languages;
+            Languages = languages ?? new List<string>();
             CriminalProfession = criminalProfession;
             LastCrime = lastCrime;
             GroupName = groupName;
         }
 
-        public void JoinGroup(string groupName, Group group)
-        {
-            
-        }
-
         public override string ToString()
         {
-            return $"{FirstName} {LastName}, Nickname: {Nickname}, Height: {Height}, Hair Color: {HairColor}, " +
-                   $"Eye Color: {EyeColor}, Distinguishing Marks: {DistinguishingMarks}, Citizenship: " +
-                   $"{Citizenship}, Birth Date: {BirthDate.ToShortDateString()}, Address: {Address}, " +
-                   $"Languages: {string.Join(", ", Languages)}, Criminal Profession: {CriminalProfession}, Last Crime: {LastCrime}";
+            return ShortInfo;
         }
+
+
+        //override equals and GetHashCode methods for comparison
+        public override bool Equals(object? obj)
+        {
+            if (obj is Criminal other)
+                return Id == other.Id;
+            return false;
+        }
+
+        public override int GetHashCode() => Id.GetHashCode();
+
     }
 }
