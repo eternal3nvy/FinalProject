@@ -25,7 +25,7 @@ namespace FinalProject.Models
         public void AddCriminal(Criminal criminal)
         {
             criminal.Id = Criminals.Count == 0 ? 0 :Criminals.Max(c => c.Id) + 1;
-            //criminal.Id = Archive.Count == 0 ? criminal.Id : Math.Max(criminal.Id, Archive.Max(c => c.Id) + 1);
+            criminal.Id = Archive.Count == 0 ? criminal.Id : Math.Max(criminal.Id, Archive.Max(c => c.Criminal.Id) + 1);
             if (!String.IsNullOrEmpty(criminal.GroupName))
             {
                 if (!GroupDB.groupDB.ContainsKey(criminal.GroupName.ToLower()))
@@ -36,40 +36,12 @@ namespace FinalProject.Models
             Criminals.Add(criminal);
         }
 
-        public void UpdateCriminal(Criminal criminal)
-        {
-            var existingCriminal = Criminals.FirstOrDefault(c => c.Id == criminal.Id);
-            if (existingCriminal != null)
-            {
-                existingCriminal.FirstName = criminal.FirstName;
-                existingCriminal.LastName = criminal.LastName;
-                existingCriminal.Nickname = criminal.Nickname;
-                existingCriminal.Height = criminal.Height;
-                existingCriminal.HairColor = criminal.HairColor;
-                existingCriminal.EyeColor = criminal.EyeColor;
-                existingCriminal.DistinguishingMarks = criminal.DistinguishingMarks;
-                existingCriminal.Citizenship = criminal.Citizenship;
-                existingCriminal.BirthDate = criminal.BirthDate;
-                existingCriminal.Address = criminal.Address;
-                existingCriminal.Languages = criminal.Languages;
-                existingCriminal.CriminalProfession = criminal.CriminalProfession;
-                existingCriminal.LastCrime = criminal.LastCrime;
-            }
-        }
-
         public void RemoveCriminal(Criminal criminal)
         {
             //delete criminal from the group if has it
             if (!String.IsNullOrEmpty(criminal.GroupName))
                 GroupDB.RemoveMember(criminal.GroupName, criminal);
             Criminals.Remove(criminal);
-        }
-
-
-        public void GenerateTestData()
-        {
-            Criminals.Add(new Criminal(101,"John", "Doe", "Johnny", 180, "Brown", "Blue", "Tattoo on arm", "USA", new DateTime(1990, 1, 1), "123 Main St", new List<string> { "English" }, "Thief", "Robbery"));
-            Criminals.Add(new Criminal(102, "Jane", "Smith", "Janie", 165, "Black", "Green", "Scar on cheek", "Canada", new DateTime(1985, 5, 15), "456 Elm St", new List<string> { "English", "French" }, "Fraudster", "Identity Theft"));
         }
 
         public void GenerateTestData(int n)
@@ -107,8 +79,9 @@ namespace FinalProject.Models
         {
             string jsonCriminals = JsonSerializer.Serialize(Criminals);
             string jsonGroups = JsonSerializer.Serialize(GroupDB.groupDB);
+            string jsonArchive = JsonSerializer.Serialize(Archive);
 
-            File.WriteAllLines(path, [jsonCriminals, jsonGroups]);
+            File.WriteAllLines(path, [jsonCriminals, jsonGroups, jsonArchive]);
         }
 
         public void DeserializeData(string path)
@@ -117,18 +90,25 @@ namespace FinalProject.Models
             {
                 string[] lines = File.ReadAllLines(path);
 
-                if (lines.Length >= 1)
+                if (lines.Length >= 1 && !string.IsNullOrWhiteSpace(lines[0]))
                 {
                     var deserializedCriminals = JsonSerializer.Deserialize<List<Criminal>>(lines[0]);
                     if (deserializedCriminals != null)
                         Criminals = deserializedCriminals;
                 }
 
-                if (lines.Length >= 2)
+                if (lines.Length >= 2 && !string.IsNullOrWhiteSpace(lines[1]))
                 {
                     var deserializedGroups = JsonSerializer.Deserialize<Dictionary<string, List<Criminal>>>(lines[1]);
                     if (deserializedGroups != null)
                         GroupDB.groupDB = deserializedGroups;
+                }
+
+                if (lines.Length >= 3 && !string.IsNullOrWhiteSpace(lines[2]))
+                {
+                    var deserializedArchive = JsonSerializer.Deserialize<List<ArchivedCriminal>>(lines[2]);
+                    if (deserializedArchive != null)
+                        Archive = deserializedArchive;
                 }
             }
             catch (Exception ex)
@@ -141,7 +121,7 @@ namespace FinalProject.Models
         public List<ICriminalInfo> AdvancedSearch(Criminal criteria, IEnumerable<ICriminalInfo> data)
         {
             IEnumerable<ICriminalInfo> query = data;
-            //query is like a view in sql. it is not create new collection just uses filters WHERE
+            //query is like a view in sql. it is not create a new collection but uses filters
             //apply filters for each property if criteria is not empty
             if (!string.IsNullOrWhiteSpace(criteria.FirstName))
                 query = query.Where(c => c.FirstName.Contains(criteria.FirstName, StringComparison.OrdinalIgnoreCase));

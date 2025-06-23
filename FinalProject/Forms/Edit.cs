@@ -15,13 +15,16 @@ namespace FinalProject.Forms
     {
         public Criminal Criminal { get; private set; }
         public InterpolBase interpolBase { get; private set; }
-        public Edit(Criminal c, InterpolBase _interpolBase)
+
+        public Edit(Criminal c, InterpolBase _interpolBase, bool change = true)
         {
             InitializeComponent();
             Text = $"{c.FirstName} {c.LastName}";
             Criminal = c;
             LoadCriminalData();
             interpolBase = _interpolBase;
+            if (!change)
+                okButton.Enabled = false; //disable ok button opened in archive
         }
 
         private bool ChangedMade(Criminal _criminal)

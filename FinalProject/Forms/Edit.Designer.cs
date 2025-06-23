@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Edit));
             cancelButton = new Button();
             lastCrimeLabel = new Label();
             okButton = new Button();
@@ -58,6 +59,7 @@
             firstNameTextBox = new TextBox();
             groupLabel = new Label();
             groupTextBox = new TextBox();
+            panel1 = new Panel();
             SuspendLayout();
             // 
             // cancelButton
@@ -310,6 +312,14 @@
             groupTextBox.Size = new Size(125, 27);
             groupTextBox.TabIndex = 57;
             // 
+            // panel1
+            // 
+            panel1.Anchor = AnchorStyles.Top;
+            panel1.Location = new Point(5, 12);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(783, 426);
+            panel1.TabIndex = 59;
+            // 
             // Edit
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -345,6 +355,8 @@
             Controls.Add(lastNameTextBox);
             Controls.Add(firstNameLabel);
             Controls.Add(firstNameTextBox);
+            Controls.Add(panel1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Edit";
             Text = "Edit";
             ResumeLayout(false);
@@ -383,5 +395,6 @@
         private TextBox firstNameTextBox;
         private Label groupLabel;
         private TextBox groupTextBox;
+        private Panel panel1;
     }
 }

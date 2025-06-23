@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAdvancedSearch));
             groupNameLabel = new Label();
             groupNameTextBox = new TextBox();
             cancelButton = new Button();
@@ -62,6 +63,7 @@
             // 
             // groupNameLabel
             // 
+            groupNameLabel.Anchor = AnchorStyles.Top;
             groupNameLabel.AutoSize = true;
             groupNameLabel.Location = new Point(479, 285);
             groupNameLabel.Name = "groupNameLabel";
@@ -71,6 +73,7 @@
             // 
             // groupNameTextBox
             // 
+            groupNameTextBox.Anchor = AnchorStyles.Top;
             groupNameTextBox.Location = new Point(617, 282);
             groupNameTextBox.Name = "groupNameTextBox";
             groupNameTextBox.Size = new Size(125, 27);
@@ -78,7 +81,7 @@
             // 
             // cancelButton
             // 
-            cancelButton.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cancelButton.Anchor = AnchorStyles.Top;
             cancelButton.DialogResult = DialogResult.Cancel;
             cancelButton.Location = new Point(425, 357);
             cancelButton.Name = "cancelButton";
@@ -89,6 +92,7 @@
             // 
             // lastCrimeLabel
             // 
+            lastCrimeLabel.Anchor = AnchorStyles.Top;
             lastCrimeLabel.AutoSize = true;
             lastCrimeLabel.Location = new Point(269, 230);
             lastCrimeLabel.Name = "lastCrimeLabel";
@@ -98,7 +102,7 @@
             // 
             // okButton
             // 
-            okButton.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            okButton.Anchor = AnchorStyles.Top;
             okButton.DialogResult = DialogResult.Yes;
             okButton.Location = new Point(280, 357);
             okButton.Name = "okButton";
@@ -109,6 +113,7 @@
             // 
             // lastCrimeTextBox
             // 
+            lastCrimeTextBox.Anchor = AnchorStyles.Top;
             lastCrimeTextBox.Location = new Point(354, 227);
             lastCrimeTextBox.Name = "lastCrimeTextBox";
             lastCrimeTextBox.Size = new Size(125, 27);
@@ -116,6 +121,7 @@
             // 
             // criminalProfessionLabel
             // 
+            criminalProfessionLabel.Anchor = AnchorStyles.Top;
             criminalProfessionLabel.AutoSize = true;
             criminalProfessionLabel.Location = new Point(508, 231);
             criminalProfessionLabel.Name = "criminalProfessionLabel";
@@ -125,6 +131,7 @@
             // 
             // criminalProfessionTextBox
             // 
+            criminalProfessionTextBox.Anchor = AnchorStyles.Top;
             criminalProfessionTextBox.Location = new Point(646, 228);
             criminalProfessionTextBox.Name = "criminalProfessionTextBox";
             criminalProfessionTextBox.Size = new Size(125, 27);
@@ -132,6 +139,7 @@
             // 
             // languagesLabel
             // 
+            languagesLabel.Anchor = AnchorStyles.Top;
             languagesLabel.AutoSize = true;
             languagesLabel.Location = new Point(32, 227);
             languagesLabel.Name = "languagesLabel";
@@ -141,6 +149,7 @@
             // 
             // languagesTextBox
             // 
+            languagesTextBox.Anchor = AnchorStyles.Top;
             languagesTextBox.Location = new Point(114, 224);
             languagesTextBox.Name = "languagesTextBox";
             languagesTextBox.Size = new Size(125, 27);
@@ -148,6 +157,7 @@
             // 
             // birthDate
             // 
+            birthDate.Anchor = AnchorStyles.Top;
             birthDate.Format = DateTimePickerFormat.Short;
             birthDate.Location = new Point(354, 179);
             birthDate.Name = "birthDate";
@@ -157,6 +167,7 @@
             // 
             // addressLabel
             // 
+            addressLabel.Anchor = AnchorStyles.Top;
             addressLabel.AutoSize = true;
             addressLabel.Location = new Point(568, 185);
             addressLabel.Name = "addressLabel";
@@ -166,6 +177,7 @@
             // 
             // addressTextBox
             // 
+            addressTextBox.Anchor = AnchorStyles.Top;
             addressTextBox.Location = new Point(646, 181);
             addressTextBox.Name = "addressTextBox";
             addressTextBox.Size = new Size(125, 27);
@@ -173,6 +185,7 @@
             // 
             // birthDateLabel
             // 
+            birthDateLabel.Anchor = AnchorStyles.Top;
             birthDateLabel.AutoSize = true;
             birthDateLabel.Location = new Point(269, 181);
             birthDateLabel.Name = "birthDateLabel";
@@ -182,6 +195,7 @@
             // 
             // citizenshipLabel
             // 
+            citizenshipLabel.Anchor = AnchorStyles.Top;
             citizenshipLabel.AutoSize = true;
             citizenshipLabel.Location = new Point(31, 177);
             citizenshipLabel.Name = "citizenshipLabel";
@@ -191,6 +205,7 @@
             // 
             // citizenshipTextBox
             // 
+            citizenshipTextBox.Anchor = AnchorStyles.Top;
             citizenshipTextBox.Location = new Point(118, 177);
             citizenshipTextBox.Name = "citizenshipTextBox";
             citizenshipTextBox.Size = new Size(121, 27);
@@ -198,6 +213,7 @@
             // 
             // distinguishingMarksLabel
             // 
+            distinguishingMarksLabel.Anchor = AnchorStyles.Top;
             distinguishingMarksLabel.AutoSize = true;
             distinguishingMarksLabel.Location = new Point(29, 285);
             distinguishingMarksLabel.Name = "distinguishingMarksLabel";
@@ -207,6 +223,7 @@
             // 
             // distinguishingMarksTextBox
             // 
+            distinguishingMarksTextBox.Anchor = AnchorStyles.Top;
             distinguishingMarksTextBox.Location = new Point(177, 282);
             distinguishingMarksTextBox.Name = "distinguishingMarksTextBox";
             distinguishingMarksTextBox.Size = new Size(239, 27);
@@ -214,6 +231,7 @@
             // 
             // label6
             // 
+            label6.Anchor = AnchorStyles.Top;
             label6.AutoSize = true;
             label6.Location = new Point(568, 131);
             label6.Name = "label6";
@@ -223,6 +241,7 @@
             // 
             // eyeColorTextBox
             // 
+            eyeColorTextBox.Anchor = AnchorStyles.Top;
             eyeColorTextBox.Location = new Point(646, 126);
             eyeColorTextBox.Name = "eyeColorTextBox";
             eyeColorTextBox.Size = new Size(125, 27);
@@ -230,6 +249,7 @@
             // 
             // hairColorLabel
             // 
+            hairColorLabel.Anchor = AnchorStyles.Top;
             hairColorLabel.AutoSize = true;
             hairColorLabel.Location = new Point(269, 127);
             hairColorLabel.Name = "hairColorLabel";
@@ -239,6 +259,7 @@
             // 
             // hairColorTextBox
             // 
+            hairColorTextBox.Anchor = AnchorStyles.Top;
             hairColorTextBox.Location = new Point(354, 123);
             hairColorTextBox.Name = "hairColorTextBox";
             hairColorTextBox.Size = new Size(125, 27);
@@ -246,6 +267,7 @@
             // 
             // heightLabel
             // 
+            heightLabel.Anchor = AnchorStyles.Top;
             heightLabel.AutoSize = true;
             heightLabel.Location = new Point(29, 126);
             heightLabel.Name = "heightLabel";
@@ -255,6 +277,7 @@
             // 
             // heightTextBox
             // 
+            heightTextBox.Anchor = AnchorStyles.Top;
             heightTextBox.Location = new Point(114, 124);
             heightTextBox.Name = "heightTextBox";
             heightTextBox.Size = new Size(125, 27);
@@ -262,6 +285,7 @@
             // 
             // nicknameLabel
             // 
+            nicknameLabel.Anchor = AnchorStyles.Top;
             nicknameLabel.AutoSize = true;
             nicknameLabel.Location = new Point(568, 73);
             nicknameLabel.Name = "nicknameLabel";
@@ -271,6 +295,7 @@
             // 
             // nicknameTextBox
             // 
+            nicknameTextBox.Anchor = AnchorStyles.Top;
             nicknameTextBox.Location = new Point(646, 72);
             nicknameTextBox.Name = "nicknameTextBox";
             nicknameTextBox.Size = new Size(125, 27);
@@ -278,6 +303,7 @@
             // 
             // lastNameLabel
             // 
+            lastNameLabel.Anchor = AnchorStyles.Top;
             lastNameLabel.AutoSize = true;
             lastNameLabel.Location = new Point(269, 72);
             lastNameLabel.Name = "lastNameLabel";
@@ -287,6 +313,7 @@
             // 
             // lastNameTextBox
             // 
+            lastNameTextBox.Anchor = AnchorStyles.Top;
             lastNameTextBox.Location = new Point(354, 65);
             lastNameTextBox.Name = "lastNameTextBox";
             lastNameTextBox.Size = new Size(125, 27);
@@ -294,6 +321,7 @@
             // 
             // firstNameLabel
             // 
+            firstNameLabel.Anchor = AnchorStyles.Top;
             firstNameLabel.AutoSize = true;
             firstNameLabel.Location = new Point(31, 68);
             firstNameLabel.Name = "firstNameLabel";
@@ -303,6 +331,7 @@
             // 
             // firstNameTextBox
             // 
+            firstNameTextBox.Anchor = AnchorStyles.Top;
             firstNameTextBox.Location = new Point(114, 65);
             firstNameTextBox.Name = "firstNameTextBox";
             firstNameTextBox.Size = new Size(125, 27);
@@ -343,6 +372,7 @@
             Controls.Add(lastNameTextBox);
             Controls.Add(firstNameLabel);
             Controls.Add(firstNameTextBox);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormAdvancedSearch";
             Text = "FormAdvancedSearch";
             FormClosing += FormAdvancedSearch_FormClosing;

@@ -40,6 +40,16 @@ namespace FinalProject.Models
 
         public string GroupName => Criminal.GroupName;
 
+        public string ShortInfo => 
+            $"FirstName: {FirstName}, LastName: {LastName}, " +
+           $"Nickname: {Nickname}, Height: {Height}, HairColor: {HairColor}, EyeColor: {EyeColor}, " +
+           $"DistinguishingMarks: {DistinguishingMarks}, Citizenship: {Citizenship}, " +
+           $"BirthDate: {BirthDate:yyyy-MM-dd}, Address: {Address}, " +
+           $"Languages: [{string.Join(", ", Languages)}], CriminalProfession: {CriminalProfession}, " +
+           $"LastCrime: {LastCrime}" +
+           $"{(!string.IsNullOrEmpty(GroupName) ? $", GroupName: {GroupName}" : "")};";
+
+
         public ArchivedCriminal(Criminal criminal, string reason)
         {
             Criminal = criminal;

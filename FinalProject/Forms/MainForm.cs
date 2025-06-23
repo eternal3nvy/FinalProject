@@ -6,6 +6,7 @@ namespace FinalProject
     public partial class MainForm : Form
     {
         private readonly InterpolBase interpolBase = new();
+        public bool IsDataChanged { get; set; } = false;
         public MainForm()
         {
             InitializeComponent();
@@ -21,6 +22,10 @@ namespace FinalProject
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (!IsDataChanged)
+            {
+                return;
+            }
             var dialogRes = MessageBox.Show("Save changes?", "Exit", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
             switch (dialogRes)
             {
@@ -48,6 +53,7 @@ namespace FinalProject
             if (res == DialogResult.Yes)
             {
                 interpolBase.AddCriminal(form.criminal);
+                IsDataChanged = true;
                 MessageBox.Show($"Criminal {form.criminal.FirstName} {form.criminal.LastName} added");
 
             }
@@ -75,6 +81,7 @@ namespace FinalProject
                 if (res == DialogResult.Yes)
                 {
                     interpolBase.RemoveCriminal(selectedCriminal);
+                    IsDataChanged = true;
                     //findButton_Click(sender, e); 
                     criminalBindingSource.DataSource = null; // it fixes the problem with listBox
                     criminalBindingSource.DataSource = interpolBase.Criminals;
@@ -96,6 +103,7 @@ namespace FinalProject
             {
                 case DialogResult.Yes:
                     criminalBindingSource.ResetBindings(false);
+                    IsDataChanged = true;
                     MessageBox.Show("Criminal updated");
                     break;
                 case DialogResult.No:
@@ -132,9 +140,10 @@ namespace FinalProject
         private void archiveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var archiveForm = new Archive(interpolBase);
-            archiveForm.ShowDialog();
+            archiveForm.Show();
         }
 
+        
         private void moveToArchiveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var selectedCriminal = listBox.SelectedItem as Criminal;
@@ -150,6 +159,15 @@ namespace FinalProject
             {
                 var reason = reasonform.Reason;
                 interpolBase.moveToArchive(selectedCriminal, reason);
+                IsDataChanged = true;
+                criminalBindingSource.DataSource = null; // reset the binding source to refresh the list
+                criminalBindingSource.DataSource = interpolBase.Criminals;
+
+                //if archive is opened reset datagridview
+                if (Application.OpenForms.OfType<Archive>().FirstOrDefault() is Archive archiveForm)
+                {
+                    archiveForm.RefreshData();
+                }
             }
         }
     }

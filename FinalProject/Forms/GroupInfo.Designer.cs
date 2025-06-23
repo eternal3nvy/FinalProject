@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GroupInfo));
             listBox1 = new ListBox();
             criminalBindingSource = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)criminalBindingSource).BeginInit();
@@ -36,6 +37,7 @@
             // 
             // listBox1
             // 
+            listBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             listBox1.DataSource = criminalBindingSource;
             listBox1.DisplayMember = "ShortInfo";
             listBox1.FormattingEnabled = true;
@@ -55,6 +57,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(listBox1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "GroupInfo";
             Text = "GroupInfo";
             ((System.ComponentModel.ISupportInitialize)criminalBindingSource).EndInit();

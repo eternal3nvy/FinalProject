@@ -16,7 +16,7 @@ namespace FinalProject.Forms
         public InterpolBase interpolBase;
         public Archive(InterpolBase interpolBase)
         {
-            InitializeComponent(); //todo: serialize archive
+            InitializeComponent();
             this.interpolBase = interpolBase;
             archivedCriminalBindingSource.DataSource = interpolBase.Archive;
         }
@@ -31,8 +31,25 @@ namespace FinalProject.Forms
                 if (criminal != null)
                 {
                     var foundCriminals = interpolBase.AdvancedSearch(criminal, interpolBase.Archive);
-                    archivedCriminalBindingSource.DataSource = foundCriminals;
+                    archivedCriminalBindingSource.DataSource = foundCriminals.Cast<ArchivedCriminal>().ToList();
+
                 }
+            }
+        }
+        public void RefreshData()
+        {
+            archivedCriminalBindingSource.DataSource = null;
+            archivedCriminalBindingSource.DataSource = interpolBase.Archive;
+        }
+
+        private void infoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            var selectedCriminal = dataGridView1.CurrentCell.Value as Criminal;
+            if (selectedCriminal != null)
+            {
+                using Edit form = new(selectedCriminal, interpolBase, false);
+                form.ShowDialog();
             }
         }
     }
