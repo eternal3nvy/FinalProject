@@ -37,9 +37,9 @@ namespace FinalProject.Forms
                 DialogResult = DialogResult.None;
                 return false;
             }
-            else if (birthDate.Value >= DateTime.Now.AddDays(-1))
+            else if (birthDate.Value >= DateTime.Now.AddDays(-1) || birthDate.Value <= DateTime.Now.AddYears(-200))
             {
-                MessageBox.Show("Birth date must be in the past.");
+                MessageBox.Show("wrong date");
                 DialogResult = DialogResult.None;
                 return false;
             }

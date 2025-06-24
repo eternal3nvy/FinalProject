@@ -239,9 +239,10 @@
             birthDate.Format = DateTimePickerFormat.Short;
             birthDate.Location = new Point(335, 156);
             birthDate.Name = "birthDate";
+            birthDate.ShowUpDown = true;
             birthDate.Size = new Size(108, 27);
             birthDate.TabIndex = 20;
-            birthDate.Value = new DateTime(2000, 1, 1, 0, 0, 0, 0);
+            birthDate.Value = new DateTime(1800, 1, 1, 0, 0, 0, 0);
             // 
             // languagesLabel
             // 

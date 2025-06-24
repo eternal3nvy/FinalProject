@@ -59,6 +59,7 @@
             firstNameTextBox = new TextBox();
             groupLabel = new Label();
             groupTextBox = new TextBox();
+            dateTimePicker1 = new DateTimePicker();
             SuspendLayout();
             // 
             // cancelButton
@@ -145,9 +146,10 @@
             birthDate.Format = DateTimePickerFormat.Short;
             birthDate.Location = new Point(347, 156);
             birthDate.Name = "birthDate";
+            birthDate.ShowUpDown = true;
             birthDate.Size = new Size(108, 27);
             birthDate.TabIndex = 48;
-            birthDate.Value = new DateTime(2000, 1, 1, 0, 0, 0, 0);
+            birthDate.Value = new DateTime(1800, 1, 1, 0, 0, 0, 0);
             // 
             // addressLabel
             // 
@@ -339,11 +341,19 @@
             groupTextBox.Size = new Size(125, 27);
             groupTextBox.TabIndex = 57;
             // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(326, 384);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(8, 27);
+            dateTimePicker1.TabIndex = 59;
+            // 
             // Edit
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(dateTimePicker1);
             Controls.Add(groupLabel);
             Controls.Add(groupTextBox);
             Controls.Add(cancelButton);
@@ -413,5 +423,6 @@
         private TextBox firstNameTextBox;
         private Label groupLabel;
         private TextBox groupTextBox;
+        private DateTimePicker dateTimePicker1;
     }
 }

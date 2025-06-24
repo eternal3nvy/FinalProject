@@ -147,8 +147,8 @@ namespace FinalProject.Models
             if (!string.IsNullOrWhiteSpace(criteria.Citizenship))
                 query = query.Where(c => c.Citizenship.Contains(criteria.Citizenship, StringComparison.OrdinalIgnoreCase));
 
-            // Filter by BirthDate only if it's not default (01/01/2000)
-            if (criteria.BirthDate != new DateTime(2000, 1, 1))
+            // Filter by BirthDate only if it's not default (01/01/1800)
+            if (criteria.BirthDate != new DateTime(1800, 1, 1))
                 query = query.Where(c => c.BirthDate.Date == criteria.BirthDate.Date);
 
             if (!string.IsNullOrWhiteSpace(criteria.Address))
