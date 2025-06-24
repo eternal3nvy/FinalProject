@@ -13,6 +13,7 @@ namespace FinalProject
             //interpolBase.GenerateTestData(500);
             interpolBase.DeserializeData("data.json");
             criminalBindingSource.DataSource = interpolBase.Criminals;
+            notFoundLabel.Visible = interpolBase.Criminals.Count == 0 ? true : false;
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -42,8 +43,11 @@ namespace FinalProject
 
         private void findButton_Click(object sender, EventArgs e)
         {
-            var founded = interpolBase.FindCriminal(firstNameBox.Text, lastNameBox.Text);
-            criminalBindingSource.DataSource = founded;
+            var found = interpolBase.FindCriminal(firstNameBox.Text, lastNameBox.Text);
+            criminalBindingSource.DataSource = found;
+            if (found.Count == 0)
+                notFoundLabel.Visible = true;
+            else notFoundLabel.Visible = false;
         }
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
@@ -123,6 +127,9 @@ namespace FinalProject
                 {
                     var foundCriminals = interpolBase.AdvancedSearch(form.container, interpolBase.Criminals);
                     criminalBindingSource.DataSource = foundCriminals;
+                    if (foundCriminals.Count == 0)
+                        notFoundLabel.Visible = true;
+                    else notFoundLabel.Visible = false;
                 }
                 else
                 {

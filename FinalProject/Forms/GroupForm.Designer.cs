@@ -38,6 +38,7 @@
             panel2 = new Panel();
             groupNametextBox = new TextBox();
             label1 = new Label();
+            noGroupsLabel = new Label();
             contextMenuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)groupBindingSource).BeginInit();
             panel2.SuspendLayout();
@@ -109,11 +110,22 @@
             label1.TabIndex = 0;
             label1.Text = "Group name";
             // 
+            // noGroupsLabel
+            // 
+            noGroupsLabel.AutoSize = true;
+            noGroupsLabel.Location = new Point(316, 312);
+            noGroupsLabel.Name = "noGroupsLabel";
+            noGroupsLabel.Size = new Size(122, 20);
+            noGroupsLabel.TabIndex = 4;
+            noGroupsLabel.Text = "No groups found";
+            noGroupsLabel.Visible = false;
+            // 
             // GroupForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(noGroupsLabel);
             Controls.Add(listBox1);
             Controls.Add(panel2);
             Icon = (Icon)resources.GetObject("$this.Icon");
@@ -124,6 +136,7 @@
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -136,5 +149,6 @@
         private Panel panel2;
         private TextBox groupNametextBox;
         private Label label1;
+        private Label noGroupsLabel;
     }
 }

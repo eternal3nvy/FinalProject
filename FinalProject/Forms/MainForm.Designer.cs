@@ -49,6 +49,7 @@
             criminalBindingSource = new BindingSource(components);
             findButton = new Button();
             advancedSearchButton = new Button();
+            notFoundLabel = new Label();
             panel1.SuspendLayout();
             menuStrip1.SuspendLayout();
             addCriminalContextMenuStrip.SuspendLayout();
@@ -212,11 +213,22 @@
             advancedSearchButton.UseVisualStyleBackColor = true;
             advancedSearchButton.Click += advancedSearchButton_Click;
             // 
+            // notFoundLabel
+            // 
+            notFoundLabel.AutoSize = true;
+            notFoundLabel.Location = new Point(325, 306);
+            notFoundLabel.Name = "notFoundLabel";
+            notFoundLabel.Size = new Size(131, 20);
+            notFoundLabel.TabIndex = 5;
+            notFoundLabel.Text = "No crimnals found";
+            notFoundLabel.Visible = false;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(notFoundLabel);
             Controls.Add(advancedSearchButton);
             Controls.Add(listBox);
             Controls.Add(panel1);
@@ -258,5 +270,6 @@
         private ToolStripMenuItem moveToArchiveToolStripMenuItem;
         private ToolStripMenuItem groupsToolStripMenuItem;
         private ToolStripMenuItem archiveToolStripMenuItem;
+        private Label notFoundLabel;
     }
 }

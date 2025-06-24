@@ -65,11 +65,11 @@
             // 
             groupNameLabel.Anchor = AnchorStyles.Top;
             groupNameLabel.AutoSize = true;
-            groupNameLabel.Location = new Point(479, 285);
+            groupNameLabel.Location = new Point(534, 285);
             groupNameLabel.Name = "groupNameLabel";
-            groupNameLabel.Size = new Size(120, 20);
+            groupNameLabel.Size = new Size(50, 20);
             groupNameLabel.TabIndex = 60;
-            groupNameLabel.Text = "Group (optional)";
+            groupNameLabel.Text = "Group";
             // 
             // groupNameTextBox
             // 
@@ -108,7 +108,7 @@
             okButton.Name = "okButton";
             okButton.Size = new Size(94, 29);
             okButton.TabIndex = 57;
-            okButton.Text = "OK";
+            okButton.Text = "Find";
             okButton.UseVisualStyleBackColor = true;
             // 
             // lastCrimeTextBox
@@ -217,9 +217,9 @@
             distinguishingMarksLabel.AutoSize = true;
             distinguishingMarksLabel.Location = new Point(29, 285);
             distinguishingMarksLabel.Name = "distinguishingMarksLabel";
-            distinguishingMarksLabel.Size = new Size(142, 20);
+            distinguishingMarksLabel.Size = new Size(146, 20);
             distinguishingMarksLabel.TabIndex = 44;
-            distinguishingMarksLabel.Text = "DistinguishingMarks";
+            distinguishingMarksLabel.Text = "Distinguishing Marks";
             // 
             // distinguishingMarksTextBox
             // 
@@ -374,7 +374,7 @@
             Controls.Add(firstNameTextBox);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "FormAdvancedSearch";
-            Text = "FormAdvancedSearch";
+            Text = "Advanced Search";
             FormClosing += FormAdvancedSearch_FormClosing;
             ResumeLayout(false);
             PerformLayout();

@@ -20,6 +20,7 @@ namespace FinalProject.Forms
             InitializeComponent();
             this.Text = "Groups";
             groupBindingSource.DataSource = interpolBase.GroupDB.GetGroups();
+            noGroupsLabel.Visible = _interpolBase.GroupDB.GetGroups().Count == 0 ? true : false;
         }
 
         private void infoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -46,15 +47,8 @@ namespace FinalProject.Forms
             var foundGroups = _interpolBase.GroupDB.GetGroups()
                 .Where(g => g.Contains(groupName, StringComparison.OrdinalIgnoreCase))
                 .ToList();
-            if (foundGroups.Count > 0)
-            {
-                groupBindingSource.DataSource = foundGroups;
-            }
-            else
-            {
-                MessageBox.Show($"No groups found with the name '{groupName}'.");
-                groupBindingSource.DataSource = _interpolBase.GroupDB.GetGroups(); 
-            }
+            groupBindingSource.DataSource = foundGroups;
+            noGroupsLabel.Visible = foundGroups.Count == 0 ? true : false;
         }
     }
 }
